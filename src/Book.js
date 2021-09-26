@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import * as BooksAPI from './BooksAPI'
-
 class Book extends Component{
   // handleChange=(book)=>{
   //   BooksAPI.update(this.props.book,'none')

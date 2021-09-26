@@ -7,10 +7,8 @@ import {Route,Switch} from 'react-router-dom'
 class BooksApp extends React.Component {
   constructor(props) {
     super(props)
-
     // Bind the this context to the handler function
     this.handler = this.handler.bind(this);
-
     // Set some state
     this.state = {
       showSearchPage: false

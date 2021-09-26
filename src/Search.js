@@ -4,11 +4,12 @@ import Book from "./Book";
 class Search extends Component{
     state ={
         query:'',
-        books:[]
+        books:[],
+        shelf:'none'
     }
     updateQuery=(query)=>{
         this.setState(()=>({
-            query:query.trim()
+            query:query
         }))
         BooksAPI.search(query)
         .then((books)=>{
@@ -17,6 +18,11 @@ class Search extends Component{
           }))
         })
     }
+    // shelf=(book)=>{
+    //   typeof(book.shelf)==='undifined'
+    //   ?this.shelf ='none'
+    //   :this.shelf=book.shelf
+    // }
     
     nextPath(path) {
         this.props.history.push(path);
@@ -47,12 +53,23 @@ class Search extends Component{
               <ol className="books-grid">
               {this.state.books.length>0&&
                     this.state.books.map((book)=>(
-                    <Book 
-                    book={book}
-                    title={book.title} 
-                    imageLinks={book.imageLinks.thumbnail} 
-                    authors={book.authors}
-                    shelf={"none"}/>
+                      typeof(book.imageLinks) === 'undefined'
+                      ?console.log('ommited book' + book.shelf)
+                      :typeof(book.shelf) === 'undefined'
+                      ?<Book 
+                      key={book.id}
+                      book={book}
+                      title={book.title} 
+                      authors={book.authors}
+                      imageLinks={book.imageLinks.thumbnail} 
+                      shelf={this.state.shelf}/>
+                      :<Book 
+                      key={book.id}
+                      book={book}
+                      title={book.title} 
+                      authors={book.authors}
+                      imageLinks={book.imageLinks.thumbnail} 
+                      shelf={book.shelf}/>
                   )
                 )
               }
